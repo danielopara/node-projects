@@ -94,8 +94,47 @@ const getUserById = async (req, res, next) => {
   }
 };
 
+const updateUserById = async (req, res) => {
+  const { firstName, lastName, email } = req.body;
+  const { id } = req.params;
+
+  try {
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(404).json({
+        status: 404,
+        message: "User not found",
+      });
+    }
+
+    (user.firstName = firstName ? firstName.toLowerCase() : user.firstName),
+      (user.lastName = lastName ? lastName.toLowerCase() : user.lastName),
+      (user.email = email ? email.toLowerCase() : user.email),
+      await user.save();
+
+    return res.status(200).json({
+      status: 200,
+      message: "user updated successfully",
+      data: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      status: 500,
+      message: "Server error",
+      error: err.message,
+    });
+  }
+};
+
 module.exports = {
   createUser,
   getUser,
   getUserById,
+  updateUserById,
 };
