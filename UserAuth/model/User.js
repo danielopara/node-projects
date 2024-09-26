@@ -1,18 +1,30 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/dbConfig");
+const { IsNotEmpty } = require("class-validator");
 
 const User = sequelize.define(
   "User",
   {
+    // @IsNotEmpty({message: "firstName cannot be empty"})
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        notEmpty: {
+          msg: "firstName cannot be empty",
+        },
+      },
     },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        notEmpty: {
+          msg: "lastName cannot be empty",
+        },
+      },
     },
     email: {
       type: DataTypes.STRING,
