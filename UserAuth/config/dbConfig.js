@@ -7,14 +7,14 @@ const sequelize = new Sequelize("nodeUserAuth", "root", "5991", {
   dialect: "mysql",
 });
 
-async function testConnection() {
-  try {
-    await sequelize.authenticate();
-    console.log("connection established");
-  } catch (err) {
-    console.log("unable to connect ", err);
-  }
-}
+// async function testConnection() {
+//   try {
+//     await sequelize.authenticate();
+//     console.log("connection established");
+//   } catch (err) {
+//     console.log("unable to connect ", err);
+//   }
+// }
 
 // testConnection();
 
