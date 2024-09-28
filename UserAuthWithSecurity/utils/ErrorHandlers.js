@@ -1,4 +1,4 @@
-import { logSuccess, logFailure } from "./Logging";
+import { logSuccess, logFailure } from "./Logging.js";
 
 class ErrorHandlers {
   static handle404(req, res, next) {

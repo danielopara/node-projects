@@ -1,6 +1,7 @@
 import { User } from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import { logFailure, logSuccess } from "../utils/Logging.js";
+import JwtService from "../jwt/JwtService.js";
 
 export const createUser = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
@@ -58,6 +59,8 @@ export const loginUser = async (req, res, next) => {
       });
     }
 
+    const token = JwtService.generateToken(user);
+
     return res.status(200).json({
       status: 200,
       message: "success",
@@ -66,12 +69,42 @@ export const loginUser = async (req, res, next) => {
         lastName: user.lastName,
         email: user.email,
       },
+      token,
     });
   } catch (err) {
     logFailure(err);
     return res.status(500).json({
       status: 500,
       message: "ERROR",
+    });
+  }
+};
+
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const data = await User.findAll();
+
+    if (!data || data.length === 0) {
+      return res.status(200).json({
+        message: "no users",
+      });
+    }
+
+    const users = data.map((user) => ({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    }));
+
+    return res.status(200).json({
+      status: 200,
+      message: "users retrieved",
+      users,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 500,
+      error: "ERROR",
     });
   }
 };
