@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import { sequelize } from "./config/dbConfig.js";
 import userRoutes from "./routes/UserRoute.js";
 import { logSuccess, logFailure } from "./utils/Logging.js";
+import ErrorHandlers from "./utils/ErrorHandlers.js";
 
 const app = express();
 const PORT = 5000;
@@ -15,6 +16,9 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", userRoutes);
+
+app.use(ErrorHandlers.handle404);
+app.use(ErrorHandlers.handleBadRequest);
 
 (async () => {
   try {
