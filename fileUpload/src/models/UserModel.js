@@ -1,7 +1,7 @@
 import { sequelize } from "../config/DbConfig.js";
 import { DataTypes } from "sequelize";
 
-const User = sequelize.define(
+export const User = sequelize.define(
   "User",
   {
     email: {
