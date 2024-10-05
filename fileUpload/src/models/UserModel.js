@@ -28,7 +28,7 @@ export const User = sequelize.define(
   {
     hooks: {
       beforeCreate: (user) => {
-        user.email = user.email.toLowercase();
+        user.email = user.email.toLowerCase();
       },
     },
   }
