@@ -4,6 +4,7 @@ import { sequelize } from "./src/config/DbConfig.js";
 import userRoutes from "./src/routes/UserRoutes.js";
 import { logSuccess, logFailure } from "./src/util/Logging.js";
 import ErrorHandlers from "./src/util/ErrorHandlers.js";
+import fileRoutes from "./src/routes/FileRoutes.js";
 
 const app = express();
 const PORT = 5400;
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", userRoutes);
+app.use("/api/file", fileRoutes);
 
 app.use(ErrorHandlers.handle404);
 app.use(ErrorHandlers.handleBadRequest);

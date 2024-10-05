@@ -1,4 +1,4 @@
-import { sequelize } from "../../config/DbConfig.js";
+import { sequelize } from "../config/DbConfig.js";
 import { DataTypes } from "sequelize";
 
 export const File = sequelize.define("files", {
