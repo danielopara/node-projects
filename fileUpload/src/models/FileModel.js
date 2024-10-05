@@ -6,8 +6,12 @@ export const File = sequelize.define("files", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  data: {
+  file: {
     type: DataTypes.BLOB("long"),
+    allowNull: false,
+  },
+  fileType: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
